@@ -64,7 +64,7 @@ services:
 
       # -- Printer (Chrome) --
       CHROME_TOKEN: chrome_token
-      CHROME_URL: ws://chrome:3000
+      CHROME_URL: wss://chrome.yorko.io:3001
 
       # -- Database (Postgres) --
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
