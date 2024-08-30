@@ -1,9 +1,5 @@
 version: "3.8"
 
-# In this Docker Compose example, it assumes that you maintain a reverse proxy externally (or chose not to).
-# The only two exposed ports here are from minio (:9000) and the app itself (:3000).
-# If these ports are changed, ensure that the env vars passed to the app are also changed accordingly.
-
 services:
   # Database (Postgres)
   postgres:
@@ -45,6 +41,8 @@ services:
       TOKEN: chrome_token
       EXIT_ON_HEALTH_FAILURE: true
       PRE_REQUEST_HEALTH_CHECK: true
+    ports:
+      - "3001:3000"  # Exposing port externally if needed
 
   app:
     image: amruthpillai/reactive-resume:latest
@@ -61,8 +59,8 @@ services:
       NODE_ENV: production
 
       # -- URLs --
-      PUBLIC_URL: http://localhost:3000
-      STORAGE_URL: http://localhost:9000/default
+      PUBLIC_URL: https://resume.yorko.io
+      STORAGE_URL: https://minio.yorko.io/default
 
       # -- Printer (Chrome) --
       CHROME_TOKEN: chrome_token
@@ -76,7 +74,7 @@ services:
       REFRESH_TOKEN_SECRET: refresh_token_secret
 
       # -- Emails --
-      MAIL_FROM: noreply@localhost
+      MAIL_FROM: noreply@yorko.io
       # SMTP_URL: smtp://user:pass@smtp:587 # Optional
 
       # -- Storage (Minio) --
@@ -100,12 +98,12 @@ services:
       # -- GitHub (Optional) --
       # GITHUB_CLIENT_ID: github_client_id
       # GITHUB_CLIENT_SECRET: github_client_secret
-      # GITHUB_CALLBACK_URL: http://localhost:3000/api/auth/github/callback
+      # GITHUB_CALLBACK_URL: https://resume.yorko.io/api/auth/github/callback
 
       # -- Google (Optional) --
       # GOOGLE_CLIENT_ID: google_client_id
       # GOOGLE_CLIENT_SECRET: google_client_secret
-      # GOOGLE_CALLBACK_URL: http://localhost:3000/api/auth/google/callback
+      # GOOGLE_CALLBACK_URL: https://resume.yorko.io/api/auth/google/callback
 
 volumes:
   minio_data:
