@@ -21,10 +21,10 @@ services:
   minio:
     image: minio/minio
     restart: unless-stopped
-    command: server /data --console-address ":9001"
+    command: server /data #--console-address ":9001"
     ports:
       - "9000:9000"
-      - "9001:9001"  # Add UI port mapping
+     # - "9001:9001"  # Add UI port mapping
     volumes:
       - minio_data:/data
     environment:
@@ -60,7 +60,7 @@ services:
 
       # -- URLs --
       PUBLIC_URL: https://resume.yorko.io
-      STORAGE_URL: https://minio.yorko.io/default
+      STORAGE_URL: https://minio.yorko.io:9000/default
 
       # -- Printer (Chrome) --
       CHROME_TOKEN: chrome_token
